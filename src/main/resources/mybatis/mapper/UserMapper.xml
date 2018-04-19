@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.briup.apps.app02.dao.UserMapper" >
+    <select id="findAll" resultType="com.briup.apps.app02.bean.User">
+
+        SELECT ID,NAME ,gender from tbl_user
+    </select>
+    <insert id="add" keyProperty="mid" parameterType="com.briup.apps.app02.bean.User">
+
+        <selectKey keyProperty="mid" resultType="java.lang.Long" order="BEFORE">
+            select user_s.nextval as mid from dual
+        </selectKey>
+        insert into tbl_user
+        (mid,name,gender,age,birth)
+        values
+        (
+          #{mid},
+          #{name,jdbcType = VARCHAR},
+          #{gender,jdbcType = VARCHAR},
+          #{age,jdbcType= INTEGER},
+          #{date,jdbcType = DATE}
+        )
+    </insert>
+    <insert id="addBatch" parameterType="com.briup.apps.app02.bean.User">
+        INSERT into tbl_user
+        (mid,name,gender)
+        SELECT user_s.nextval,cd.* from(
+        <foreach collection="list" item="item"  close=")" open="(" index="index" separator="union all">
+          Select
+            #{item.name,jdbcType = VARCHAR},
+            #{item.gender,jdbcType= VARCHAR }
+          from dual
+        </foreach>
+        ) cd
+
+    </insert>
+
+</mapper>

@@ -1,10 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
 </head>
+<head>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <body>
-	
+ <div mid="box">
+     <input type="button" value="click me" @click="find">
+     <input type="button" value="add" @click="add">
+     <input  @keyup="show| debounce 2000" type="text">
+     <ul>
+         <li v-for="item in list">{{item.name}} : {{item.gender}}</li>
+     </ul>
+ </div>
 </body>
+<script>
+
+    var vue = new Vue({
+        el:"#box",
+        data:{
+            list:[],
+            value:1,
+            inputvalue:"11"
+        },
+        methods:{
+            show:function () {
+              console.log("this is show")  ;
+            },
+            find:function () {
+                this.$http({
+                    url:"users/findAll",
+                }).then(function (res) {
+                 this.list = this.list.concat(res.data);
+                });
+            },
+            add:function () {
+                this.list.push({mid:5,name:'1111'});
+            },
+            show:function () {
+                console.log(this.inputvalue);
+            }
+        }
+
+
+    });
+
+
+</script>
 </html>

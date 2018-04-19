@@ -19,17 +19,22 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Api(value="用户相关API")
 @RestController
 @RequestMapping(path= {"/users"})
 public class UserController {
 	@Autowired
 	private IUserService userService;
-	
+
+
+
 	@ApiOperation(value="查询所有用户",notes="将所有用户信息都查询出来")
 	@GetMapping(path= {"/findAll"})
 	@JsonRawValue
-	public List<User> findAll() {
+	public List<User> findAll(HttpServletRequest request) {
+		String header = request.getServerName();
 		List<User> users = new ArrayList<>();
 		try {
 			users = userService.findAll();

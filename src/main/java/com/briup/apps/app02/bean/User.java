@@ -1,6 +1,7 @@
 package com.briup.apps.app02.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,30 +17,49 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ApiModelProperty(value="用户ID")
-	private Long id;
+	private Long mid;
 	@ApiModelProperty(value="用户姓名", required=true)
-	private String name;
+	private String name =" ";
 	@ApiModelProperty(value="用户性别", required=true)
 	private String gender;
 	@ApiModelProperty(value="出生日期",required=true)
 	private String birth;
+	private Long age =0L;
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Long getAge() {
+		return age;
+	}
+
+	public void setAge(Long age) {
+		this.age = age;
+	}
+
 	public User() {
 		
 	}
 	
 	public User(Long id, String name, String gender, String birth) {
 		super();
-		this.id = id;
+		this.mid = id;
 		this.name = name;
 		this.gender = gender;
 		this.birth = birth;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getMid() {
+		return mid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setMid(Long mid) {
+		this.mid = mid;
 	}
 	public String getName() {
 		return name;
@@ -62,6 +82,6 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", gender=" + gender + ", birth=" + birth + "]";
+		return "User [mid=" + mid + ", name=" + name + ", gender=" + gender + ", birth=" + birth + "]";
 	}
 }
