@@ -11,7 +11,7 @@
             select user_s.nextval as mid from dual
         </selectKey>
         insert into tbl_user
-        (mid,name,gender,age,birth)
+        (id,name,gender,age,birth)
         values
         (
           #{mid},
@@ -23,7 +23,7 @@
     </insert>
     <insert id="addBatch" parameterType="com.briup.apps.app02.bean.User">
         INSERT into tbl_user
-        (mid,name,gender)
+        (id,name,gender)
         SELECT user_s.nextval,cd.* from(
         <foreach collection="list" item="item"  close=")" open="(" index="index" separator="union all">
           Select
